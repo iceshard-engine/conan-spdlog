@@ -51,5 +51,5 @@ class spdlogConan(ConanFile):
         self.cpp_info.debug.libdirs = ["lib/Debug"]
         self.cpp_info.release.libdirs = ["lib/Release"]
         self.cpp_info.libdirs = []
-        self.cpp_info.debug.libs = ["sdplogd"]
-        self.cpp_info.release.libs = ["sdplog"]
+        self.cpp_info.debug.libs = ["spdlogd"]
+        self.cpp_info.release.libs = ["spdlog"]
