@@ -10,6 +10,13 @@ class spdlogConan(ConanFile):
     # Settings and options
     settings = "os", "compiler", "arch"
 
+    options = {
+        "latest": [True, False]
+    }
+    default_options = {
+        "latest": False
+    }
+
     # Iceshard conan tools
     python_requires = "conan-iceshard-tools/0.5@iceshard/stable"
     python_requires_extend = "conan-iceshard-tools.IceTools"
@@ -18,6 +25,12 @@ class spdlogConan(ConanFile):
     def init(self):
         self.ice_init("cmake")
         self.build_requires = self._ice.build_requires
+
+    def ice_source_entry(self, version):
+        if self.options.latest == True:
+            return "latest"
+        else:
+            return version
 
     def ice_build(self):
         self.ice_build_cmake(["Debug", "Release"])
