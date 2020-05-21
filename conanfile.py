@@ -11,14 +11,16 @@ class spdlogConan(ConanFile):
     settings = "os", "compiler", "arch"
 
     options = {
-        "latest": [True, False]
+        "latest": [True, False],
+        "fmt_external": [True, False]
     }
     default_options = {
-        "latest": False
+        "latest": False,
+        "fmt_external": False
     }
 
     # Iceshard conan tools
-    python_requires = "conan-iceshard-tools/0.5@iceshard/stable"
+    python_requires = "conan-iceshard-tools/0.5.1@iceshard/stable"
     python_requires_extend = "conan-iceshard-tools.IceTools"
 
 
@@ -32,8 +34,12 @@ class spdlogConan(ConanFile):
         else:
             return version
 
+    def requirements(self):
+        if self.options.fmt_external == True:
+            self.requires("fmt/6.2.1@iceshard/stable")
+
     def ice_build(self):
-        self.ice_build_cmake(["Debug", "Release"])
+        self.ice_build_cmake(["Debug", "Release"], definitions={"SPDLOG_FMT_EXTERNAL":""})
 
     def package(self):
         self.copy("LICENSE", src=self._ice.source_dir, dst="LICENSE")
@@ -53,3 +59,6 @@ class spdlogConan(ConanFile):
         self.cpp_info.libdirs = []
         self.cpp_info.debug.libs = ["spdlogd"]
         self.cpp_info.release.libs = ["spdlog"]
+
+        if self.options.fmt_external == True:
+            self.cpp_info.defines = ["SPDLOG_FMT_EXTERNAL"]
