@@ -39,7 +39,10 @@ class spdlogConan(ConanFile):
             self.requires("fmt/6.2.1@iceshard/stable")
 
     def ice_build(self):
-        self.ice_build_cmake(["Debug", "Release"], definitions={"SPDLOG_FMT_EXTERNAL":""})
+        if self.options.fmt_external == True:
+            self.ice_build_cmake(["Debug", "Release"], definitions={"SPDLOG_FMT_EXTERNAL":""})
+        else:
+            self.ice_build_cmake(["Debug", "Release"])
 
     def package(self):
         self.copy("LICENSE", src=self._ice.source_dir, dst="LICENSE")
