@@ -15,4 +15,4 @@ jobs:
         conan remote add conan-bincrafters https://api.bintray.com/conan/bincrafters/public-conan
     - name: Build
       run: |
-        conan create . spdlog/1.5.0@iceshard/stable
+        conan create . spdlog/1.7.0@iceshard/stable

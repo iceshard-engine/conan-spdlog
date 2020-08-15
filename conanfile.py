@@ -36,7 +36,7 @@ class spdlogConan(ConanFile):
 
     def requirements(self):
         if self.options.fmt_external == True:
-            self.requires("fmt/6.2.1@iceshard/stable")
+            self.requires("fmt/7.0.3@iceshard/stable")
 
     def ice_build(self):
         if self.options.fmt_external == True:
